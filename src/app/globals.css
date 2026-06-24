@@ -48,6 +48,34 @@
 /* Print styles for brief export */
 @media print {
   .no-print { display: none !important; }
-  body { background: white; }
-  .print-full { max-width: 100% !important; }
+
+  body {
+    background: white !important;
+    font-size: 11pt;
+    color: #0f172a;
+  }
+
+  .print-full {
+    max-width: 100% !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* Make textarea content visible and full-height in print */
+  textarea {
+    height: auto !important;
+    min-height: unset !important;
+    overflow: visible !important;
+    font-size: 9.5pt !important;
+    line-height: 1.6 !important;
+    padding: 0 16px !important;
+    resize: none !important;
+    border: none !important;
+  }
+
+  @page {
+    margin: 0.75in;
+    size: letter portrait;
+  }
 }

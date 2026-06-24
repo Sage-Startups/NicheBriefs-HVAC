@@ -62,7 +62,32 @@ export async function POST(req: NextRequest) {
     outputTokens = completion.usage?.completion_tokens;
   } catch (err) {
     const message = err instanceof Error ? err.message : "Generation failed";
+    console.error("[briefs/generate] OpenAI error:", message);
     return NextResponse.json({ error: `AI generation failed: ${message}` }, { status: 500 });
+  }
+
+  // Validate that the required sections are present in the generated output
+  const REQUIRED_SECTIONS = [
+    "summary", "seoTitle", "metaDescription", "urlSlug", "h1",
+    "searchIntentAnalysis", "contentOutline", "localSeoRecommendations",
+    "requiredTalkingPoints", "competitorAngleNotes", "faqIdeas",
+    "internalLinkSuggestions", "ctaRecommendations", "writerInstructions",
+  ] as const;
+
+  const missingSections = REQUIRED_SECTIONS.filter(
+    (key) => !(generatedJson as unknown as Record<string, unknown>)[key]
+  );
+
+  if (missingSections.length > 4) {
+    console.error("[briefs/generate] Too many missing sections:", missingSections.join(", "));
+    return NextResponse.json(
+      { error: `Brief generation incomplete — missing required sections: ${missingSections.join(", ")}. Please try again.` },
+      { status: 500 }
+    );
+  }
+
+  if (missingSections.length > 0) {
+    console.warn("[briefs/generate] Some sections missing:", missingSections.join(", "));
   }
 
   const markdown = generateMarkdown(generatedJson, title);

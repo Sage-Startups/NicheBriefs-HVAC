@@ -15,6 +15,7 @@ type BriefWithProject = Brief & { project: Project | null };
 
 interface DashboardClientProps {
   briefs: BriefWithProject[];
+  projects: Project[];
 }
 
 const STATUS_COLORS: Record<string, "secondary" | "teal" | "amber" | "green"> = {
@@ -23,22 +24,35 @@ const STATUS_COLORS: Record<string, "secondary" | "teal" | "amber" | "green"> = 
   edited: "green",
 };
 
-export function DashboardClient({ briefs }: DashboardClientProps) {
+export function DashboardClient({ briefs, projects }: DashboardClientProps) {
   const [search, setSearch] = useState("");
   const [serviceType, setServiceType] = useState("all");
   const [pageType, setPageType] = useState("all");
+  const [projectFilter, setProjectFilter] = useState("all");
+  const [cityFilter, setCityFilter] = useState("all");
+
+  const cities = useMemo(() => {
+    const s = new Set<string>();
+    briefs.forEach((b) => { if (b.targetCity) s.add(b.targetCity); });
+    return Array.from(s).sort();
+  }, [briefs]);
 
   const filtered = useMemo(() => {
     return briefs.filter((b) => {
       const matchSearch =
         !search ||
         b.title.toLowerCase().includes(search.toLowerCase()) ||
-        b.primaryKeyword.toLowerCase().includes(search.toLowerCase());
+        b.primaryKeyword.toLowerCase().includes(search.toLowerCase()) ||
+        (b.targetCity?.toLowerCase().includes(search.toLowerCase()) ?? false);
       const matchService = serviceType === "all" || b.serviceType === serviceType;
       const matchPage = pageType === "all" || b.pageType === pageType;
-      return matchSearch && matchService && matchPage;
+      const matchProject = projectFilter === "all" || b.projectId === projectFilter;
+      const matchCity = cityFilter === "all" || b.targetCity === cityFilter;
+      return matchSearch && matchService && matchPage && matchProject && matchCity;
     });
-  }, [briefs, search, serviceType, pageType]);
+  }, [briefs, search, serviceType, pageType, projectFilter, cityFilter]);
+
+  const hasActiveFilters = search || serviceType !== "all" || pageType !== "all" || projectFilter !== "all" || cityFilter !== "all";
 
   return (
     <div className="flex-1 overflow-auto p-6">
@@ -59,18 +73,18 @@ export function DashboardClient({ briefs }: DashboardClientProps) {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-3 mb-6">
-        <div className="relative flex-1">
+      <div className="flex flex-col sm:flex-row flex-wrap gap-3 mb-6">
+        <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
           <Input
-            placeholder="Search briefs or keywords…"
+            placeholder="Search briefs, keywords, or city…"
             className="pl-9"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <Select value={serviceType} onValueChange={setServiceType}>
-          <SelectTrigger className="w-full sm:w-48">
+          <SelectTrigger className="w-full sm:w-44">
             <SelectValue placeholder="Service type" />
           </SelectTrigger>
           <SelectContent>
@@ -81,7 +95,7 @@ export function DashboardClient({ briefs }: DashboardClientProps) {
           </SelectContent>
         </Select>
         <Select value={pageType} onValueChange={setPageType}>
-          <SelectTrigger className="w-full sm:w-48">
+          <SelectTrigger className="w-full sm:w-44">
             <SelectValue placeholder="Page type" />
           </SelectTrigger>
           <SelectContent>
@@ -91,6 +105,32 @@ export function DashboardClient({ briefs }: DashboardClientProps) {
             ))}
           </SelectContent>
         </Select>
+        {projects.length > 0 && (
+          <Select value={projectFilter} onValueChange={setProjectFilter}>
+            <SelectTrigger className="w-full sm:w-44">
+              <SelectValue placeholder="Project" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All projects</SelectItem>
+              {projects.map((p) => (
+                <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
+        {cities.length > 1 && (
+          <Select value={cityFilter} onValueChange={setCityFilter}>
+            <SelectTrigger className="w-full sm:w-44">
+              <SelectValue placeholder="City" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All cities</SelectItem>
+              {cities.map((c) => (
+                <SelectItem key={c} value={c}>{c}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
       </div>
 
       {/* Brief list */}
@@ -101,6 +141,22 @@ export function DashboardClient({ briefs }: DashboardClientProps) {
           <Search className="h-8 w-8 text-slate-300 mb-3" />
           <p className="text-slate-500 font-medium">No briefs match your filters</p>
           <p className="text-sm text-slate-400 mt-1">Try adjusting your search or filters</p>
+          {hasActiveFilters && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="mt-4"
+              onClick={() => {
+                setSearch("");
+                setServiceType("all");
+                setPageType("all");
+                setProjectFilter("all");
+                setCityFilter("all");
+              }}
+            >
+              Clear all filters
+            </Button>
+          )}
         </div>
       ) : (
         <div className="grid gap-3">
@@ -126,6 +182,9 @@ function BriefRow({ brief }: { brief: BriefWithProject }) {
             </p>
             <div className="flex items-center gap-2 mt-1 flex-wrap">
               <span className="text-xs text-slate-500">{brief.primaryKeyword}</span>
+              {brief.targetCity && (
+                <span className="text-xs text-slate-400">· {brief.targetCity}</span>
+              )}
               {brief.project && (
                 <span className="text-xs text-slate-400">· {brief.project.name}</span>
               )}
