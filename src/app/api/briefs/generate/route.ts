@@ -14,6 +14,19 @@ export async function POST(req: NextRequest) {
   const workspace = await getCurrentWorkspace(session.user.id);
   if (!workspace) return NextResponse.json({ error: "No workspace" }, { status: 404 });
 
+  // Gate generation on subscription status
+  const sub = workspace.subscriptions?.[0];
+  const subStatus = sub?.status ?? "trialing";
+  const canGenerate = subStatus === "trialing" || subStatus === "active";
+
+  if (!canGenerate) {
+    const message =
+      subStatus === "past_due"
+        ? "Your subscription payment is past due. Update your payment method in Settings → Billing to continue."
+        : "Your subscription has ended. Upgrade to Pro in Settings → Billing to continue generating briefs.";
+    return NextResponse.json({ error: message, code: "subscription_required" }, { status: 403 });
+  }
+
   if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "not-set") {
     return NextResponse.json(
       { error: "OpenAI API key not configured. Set OPENAI_API_KEY in your environment." },

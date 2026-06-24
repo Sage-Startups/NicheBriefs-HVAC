@@ -56,6 +56,15 @@ export function NewBriefForm({ projects }: NewBriefFormProps) {
         }),
       });
       const data = await res.json();
+      if (res.status === 403) {
+        toast({
+          title: "Upgrade required",
+          description: (data.error ?? "Upgrade to Pro to continue generating briefs.") + " Go to Settings → Billing.",
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
       if (!res.ok) throw new Error(data.error ?? "Generation failed");
       router.push(`/briefs/${data.brief_id}`);
     } catch (err) {
