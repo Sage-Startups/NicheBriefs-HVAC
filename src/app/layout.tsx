@@ -10,7 +10,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "NicheBriefs HVAC — SEO Brief Generator",
   description:
-    "Generate structured HVAC SEO content briefs in minutes. Built for SEO consultants, niche site operators, and content agencies.",
+    "Generate structured HVAC SEO content briefs in minutes. Built for HVAC SEO agencies, consultants, and content teams serving the HVAC industry.",
 };
 
 export default function RootLayout({

@@ -73,28 +73,68 @@ export default async function LandingPage() {
             <div className="h-3 w-3 rounded-full bg-amber-400" />
             <div className="h-3 w-3 rounded-full bg-green-400" />
             <div className="flex-1 mx-4 h-6 rounded bg-white border border-[#E2E8F0] flex items-center px-3">
-              <span className="text-xs text-slate-400">nichebriefs.com/briefs/ac-repair-phoenix</span>
+              <span className="text-xs text-slate-400">sample preview — ac-repair-phoenix</span>
             </div>
           </div>
           {/* Mock brief content */}
-          <div className="p-6 sm:p-8 font-mono text-sm text-[#334155] leading-relaxed space-y-4">
+          <div className="p-5 sm:p-7 font-mono text-sm text-[#334155] leading-relaxed space-y-3 max-h-[460px] overflow-y-auto">
             <div className="text-[#0F172A] font-bold text-base">AC Repair in Phoenix SEO Brief</div>
-            <div className="border-t border-[#E2E8F0] pt-4 space-y-2">
-              <div><span className="text-slate-400">## SEO Title</span></div>
+
+            <div className="border-t border-[#E2E8F0] pt-3 space-y-1">
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">SEO Title</div>
               <div className="text-[#2563EB] font-medium">AC Repair in Phoenix, AZ | Fast &amp; Reliable Service</div>
               <div className="text-xs text-slate-400">→ Alt: Phoenix AC Repair — Same-Day Emergency HVAC Service</div>
             </div>
+
             <div className="space-y-1">
-              <div><span className="text-slate-400">## H1</span></div>
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Meta Description</div>
+              <div className="text-xs text-slate-600 leading-relaxed">Need AC repair in Phoenix? Our licensed technicians respond fast — available 24/7. Serving Phoenix, Scottsdale &amp; Mesa. Call now for a free estimate.</div>
+            </div>
+
+            <div className="space-y-1">
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">URL Slug</div>
+              <div className="text-[#14B8A6]">/ac-repair-phoenix</div>
+            </div>
+
+            <div className="space-y-1">
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">H1</div>
               <div>Phoenix AC Repair — Fast, Reliable Service When You Need It Most</div>
             </div>
+
             <div className="space-y-1">
-              <div><span className="text-slate-400">## Content Outline</span></div>
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Search Intent Analysis</div>
+              <div className="text-xs text-slate-500 leading-relaxed">Searcher needs same-day AC repair in Phoenix during extreme summer heat. Page must show 24/7 availability, fast contact, and local expertise.</div>
+            </div>
+
+            <div className="space-y-1">
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Content Outline</div>
               <div className="text-slate-500">Why Phoenix AC Repairs Can't Wait</div>
               <div className="text-slate-500">Common AC Problems We Fix in Phoenix</div>
-              <div className="text-slate-500">Our AC Repair Process</div>
+              <div className="text-slate-500">Our Phoenix AC Repair Process</div>
               <div className="text-slate-500">AC Repair Costs in Phoenix</div>
-              <div className="text-slate-400 text-xs mt-1">+ local SEO recs · FAQs · CTAs · writer instructions</div>
+              <div className="text-slate-400 text-xs mt-0.5">+ 3 more H2 sections</div>
+            </div>
+
+            <div className="space-y-1">
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Required Talking Points</div>
+              <div className="text-xs text-slate-500">• Arizona summer heat and AC failure health risks</div>
+              <div className="text-xs text-slate-500">• AC units serviced: central, mini-splits, heat pumps</div>
+              <div className="text-xs text-slate-500">• AZ ROC contractor license — verify &amp; display</div>
+              <div className="text-slate-400 text-xs mt-0.5">+ 7 more talking points</div>
+            </div>
+
+            <div className="space-y-1">
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Competitor Angle Notes</div>
+              <div className="text-xs text-slate-500">No competitor URLs provided — treated as reference labels only, not crawled or analyzed.</div>
+            </div>
+
+            <div className="space-y-1">
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Internal Link Suggestions</div>
+              <div className="text-xs text-slate-500">→ /ac-installation-phoenix · /hvac-maintenance · /emergency-hvac-service</div>
+            </div>
+
+            <div className="text-xs text-slate-400 pt-1 border-t border-[#E2E8F0] mt-1">
+              + FAQs (7 questions) · Local SEO recs (6 items) · CTAs (4) · Writer instructions
             </div>
           </div>
         </div>
@@ -143,6 +183,68 @@ export default async function LandingPage() {
         </div>
       </section>
 
+      {/* Pricing */}
+      <section className="bg-white border-t border-[#E2E8F0] py-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <h2 className="text-2xl font-bold text-[#0F172A] text-center mb-2">
+            Simple, transparent pricing
+          </h2>
+          <p className="text-slate-500 text-center mb-10">Start free. Upgrade when you need unlimited generation.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <Card className="border-[#E2E8F0]">
+              <CardContent className="pt-6 pb-6">
+                <div className="mb-5">
+                  <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Trial</p>
+                  <p className="text-3xl font-bold text-[#0F172A]">Free</p>
+                  <p className="text-sm text-slate-500 mt-1">Explore the full feature set</p>
+                </div>
+                <ul className="space-y-2 text-sm text-slate-600 mb-6">
+                  {[
+                    "Full access to all features",
+                    "Generate HVAC SEO briefs",
+                    "Projects & export tools",
+                    "No credit card required",
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-2">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-[#14B8A6] shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/sign-up">
+                  <Button variant="outline" className="w-full">Start free trial</Button>
+                </Link>
+              </CardContent>
+            </Card>
+            <Card className="border-[#2563EB] shadow-sm">
+              <CardContent className="pt-6 pb-6">
+                <div className="mb-5">
+                  <p className="text-xs font-semibold text-[#2563EB] uppercase tracking-wider mb-1">Pro</p>
+                  <p className="text-3xl font-bold text-[#0F172A]">$49<span className="text-base font-normal text-slate-400">/mo</span></p>
+                  <p className="text-sm text-slate-500 mt-1">Unlimited brief generation</p>
+                </div>
+                <ul className="space-y-2 text-sm text-slate-600 mb-6">
+                  {[
+                    "Everything in Trial",
+                    "Unlimited brief generation",
+                    "Priority email support",
+                    "Early access to new features",
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-2">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-[#14B8A6] shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/sign-up">
+                  <Button className="w-full">Get started</Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing CTA */}
       <section className="bg-[#0F172A] py-16">
         <div className="mx-auto max-w-6xl px-6 text-center">
@@ -160,13 +262,21 @@ export default async function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[#E2E8F0] bg-white py-6">
-        <div className="mx-auto max-w-6xl px-6 flex items-center justify-between text-xs text-slate-400">
-          <div className="flex items-center gap-1.5">
-            <Wind className="h-3.5 w-3.5 text-[#2563EB]" />
-            NicheBriefs HVAC
+      <footer className="border-t border-[#E2E8F0] bg-white py-8">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-1.5 text-xs text-slate-400">
+              <Wind className="h-3.5 w-3.5 text-[#2563EB]" />
+              <span>NicheBriefs HVAC — HVAC SEO Brief Generator</span>
+            </div>
+            <nav className="flex items-center gap-4 text-xs text-slate-400">
+              <Link href="/sign-in" className="hover:text-[#2563EB] transition-colors">Sign in</Link>
+              <Link href="/sign-up" className="hover:text-[#2563EB] transition-colors">Sign up</Link>
+              <Link href="/terms" className="hover:text-[#2563EB] transition-colors">Terms</Link>
+              <Link href="/privacy" className="hover:text-[#2563EB] transition-colors">Privacy</Link>
+              <a href="mailto:hello@nichebriefs.com" className="hover:text-[#2563EB] transition-colors">Support</a>
+            </nav>
           </div>
-          <p>HVAC SEO Brief Generator · Built for agencies</p>
         </div>
       </footer>
     </div>
