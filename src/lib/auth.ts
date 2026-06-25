@@ -12,21 +12,16 @@ import {
   verificationTokens,
 } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { authConfig } from "@/lib/auth.config";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   adapter: DrizzleAdapter(db, {
     usersTable: users as never,
     accountsTable: accounts as never,
     sessionsTable: sessions as never,
     verificationTokensTable: verificationTokens as never,
   }),
-  session: {
-    strategy: "jwt",
-  },
-  pages: {
-    signIn: "/sign-in",
-    error: "/sign-in",
-  },
   providers: [
     ...(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET
       ? [
