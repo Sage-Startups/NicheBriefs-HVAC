@@ -53,15 +53,18 @@ export default async function LandingPage() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8">
           <Link href="/sign-up">
             <Button size="lg" className="gap-2">
-              Start generating briefs
+              Start free trial
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
-          <Link href="/sign-in">
-            <Button variant="outline" size="lg">Sign in</Button>
+          <Link href="/demo">
+            <Button variant="outline" size="lg">View demo</Button>
           </Link>
         </div>
-        <p className="mt-4 text-xs text-slate-400">No credit card required · Demo mode available</p>
+        <p className="mt-4 text-xs text-slate-400">
+          No credit card required ·{" "}
+          <Link href="/sign-in" className="hover:underline">Sign in</Link>
+        </p>
       </section>
 
       {/* Mock product preview */}
@@ -227,7 +230,7 @@ export default async function LandingPage() {
                   {[
                     "Everything in Trial",
                     "Unlimited brief generation",
-                    "Priority email support",
+                    "Email support",
                     "Early access to new features",
                   ].map((item) => (
                     <li key={item} className="flex items-center gap-2">

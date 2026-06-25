@@ -28,6 +28,7 @@ export default async function SettingsPage() {
           workspace={{ name: workspace.name }}
           subscription={subscription ?? null}
           stripeConfigured={!!process.env.STRIPE_SECRET_KEY && !!process.env.STRIPE_PRICE_ID}
+          isDemoUser={user?.email === "demo@nichebriefs.com"}
         />
       </div>
     </div>

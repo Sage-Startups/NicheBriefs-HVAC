@@ -15,6 +15,7 @@ interface SettingsClientProps {
   workspace: { name: string };
   subscription: Subscription | null;
   stripeConfigured: boolean;
+  isDemoUser?: boolean;
 }
 
 const STATUS_BADGE: Record<string, "green" | "amber" | "red" | "secondary"> = {
@@ -25,7 +26,7 @@ const STATUS_BADGE: Record<string, "green" | "amber" | "red" | "secondary"> = {
   inactive: "secondary",
 };
 
-export function SettingsClient({ user, workspace, subscription, stripeConfigured }: SettingsClientProps) {
+export function SettingsClient({ user, workspace, subscription, stripeConfigured, isDemoUser }: SettingsClientProps) {
   const { toast } = useToast();
   const [loadingCheckout, setLoadingCheckout] = useState(false);
   const [loadingPortal, setLoadingPortal] = useState(false);
@@ -60,6 +61,11 @@ export function SettingsClient({ user, workspace, subscription, stripeConfigured
 
   return (
     <div className="max-w-2xl mx-auto p-6 space-y-6">
+      {isDemoUser && (
+        <div className="rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+          <strong>Demo workspace</strong> — You&apos;re signed in as the shared demo user. Briefs use the deterministic demo fallback. Sign up with your own account and add an OpenAI API key to generate AI-powered briefs.
+        </div>
+      )}
       {/* Profile */}
       <Card>
         <CardHeader>

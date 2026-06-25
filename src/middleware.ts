@@ -5,14 +5,14 @@ export default auth((req) => {
   const isLoggedIn = !!req.auth;
   const { pathname } = req.nextUrl;
 
-  const publicPaths = ["/", "/sign-in", "/sign-up", "/terms", "/privacy", "/api/auth", "/api/webhooks"];
+  const publicPaths = ["/", "/sign-in", "/sign-up", "/demo", "/terms", "/privacy", "/api/auth", "/api/webhooks"];
   const isPublic = publicPaths.some((p) => pathname === p || pathname.startsWith(p + "/"));
 
   if (!isLoggedIn && !isPublic) {
     return NextResponse.redirect(new URL("/sign-in", req.url));
   }
 
-  if (isLoggedIn && (pathname === "/sign-in" || pathname === "/sign-up")) {
+  if (isLoggedIn && (pathname === "/sign-in" || pathname === "/sign-up" || pathname === "/demo")) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
