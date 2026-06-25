@@ -1,11 +1,13 @@
-import NextAuth from "next-auth";
-import { authConfig } from "@/lib/auth.config";
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
 
-const { auth } = NextAuth(authConfig);
+export async function middleware(req: NextRequest) {
+  const token = await getToken({
+    req,
+    secret: process.env.AUTH_SECRET,
+  }).catch(() => null);
 
-export default auth((req) => {
-  const isLoggedIn = !!req.auth;
+  const isLoggedIn = !!token;
   const { pathname } = req.nextUrl;
 
   const publicPaths = ["/", "/sign-in", "/sign-up", "/demo", "/terms", "/privacy", "/api/auth", "/api/webhooks"];
@@ -20,7 +22,7 @@ export default auth((req) => {
   }
 
   return NextResponse.next();
-});
+}
 
 export const config = {
   matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"],
